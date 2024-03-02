@@ -1,0 +1,3 @@
+[submodule "navy_psr"]
+	path = navy_psr
+	url = git@github.com:twgardner2/navy_psr.git
