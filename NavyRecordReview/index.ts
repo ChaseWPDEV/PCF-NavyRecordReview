@@ -1,13 +1,37 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 
+import * as lib from './navy_psr/src/js/lib.js';
+
+import {
+    buildElements,
+    draw_legend,
+    addTabs,
+    addViewToggle
+} from './navy_psr/src/js/view/page-components.js';
+
+import * as d3 from 'd3';
+
+import { appendMultiNameSelect } from './navy_psr/src/js/view/record-selector.js';
+import { DataLoader } from './navy_psr/src/js/data/providers/DataLoader.js';
+import { setFlatPickr } from './navy_psr/src/js/stores/view-settings.js';
+
+import { appendPDFUploadForm } from './navy_psr/src/js/view/pdf-form.js';
+
+
 export class NavyRecordReview implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
+    private _container: HTMLDivElement;
+    // reference to Power Apps component framework Context object
+    private nrrWrapper: HTMLDivElement;
+
+    private _context: ComponentFramework.Context<IInputs>;
+    // Event Handler 'refreshData' reference
+  
     /**
      * Empty constructor.
      */
     constructor()
     {
-
     }
 
     /**
@@ -20,7 +44,48 @@ export class NavyRecordReview implements ComponentFramework.StandardControl<IInp
      */
     public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
     {
-        // Add control initialization code
+     
+        this._context = context;
+        this._container=document.createElement('div');
+        const gridElem : HTMLDivElement=document.createElement('div');
+        gridElem.classList.add('grid');
+        const gridD3 = d3.select(gridElem);
+        
+        addTabs(); //TODO: change to inject element for flexible classNames
+        
+        appendMultiNameSelect(gridD3);
+        appendPDFUploadForm(gridD3);
+        addViewToggle(); //TODO: change to inject element for flexible classNames
+        
+        buildElements(gridD3);
+
+        d3.select('#start-date').on('change', function (this: any, event) {
+            let instance: any = this;
+            setFlatPickr(instance.flatpickr().selectedDates[0]);
+        });
+
+        draw_legend(); //TODO: change to inject element for flexible classNames
+        
+        let sampleData=require('./navy_psr/sample_psr.json');
+        
+        this._container.appendChild(gridElem);
+        const dataGroup=document.createElement('g')
+        dataGroup.id='original_data';
+        dataGroup.setAttribute('original_data', JSON.stringify(sampleData));
+        this._container.appendChild(dataGroup);
+        
+        container.appendChild(this._container);
+
+        // d3.select(this._container)
+        // .append('g')
+        // .attr('id', 'original_data')
+        // .attr('original_data', sampleData)
+        // .data(sampleData);
+        
+        let loader= new DataLoader(sampleData);
+        loader.setRecordName(lib.sample_name);
+        loader.load();
+        
     }
 
 
