@@ -16,5 +16,6 @@
 # MSBuild Binary and Structured Log
 *.binlog
 
-# Example Project
-PowerAppsComponent/
+# Compile Styles
+NavyRecordReview/style*
+

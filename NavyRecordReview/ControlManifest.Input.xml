@@ -32,8 +32,9 @@
     -->
     <resources>
       <code path="index.ts" order="1"/>
+      <css path="style.min.css" order="1" />
+      <css path="../node_modules/flatpickr/dist/flatpickr.min.css" order="2" />
       <!-- UNCOMMENT TO ADD MORE RESOURCES
-      <css path="css/NavyRecordReview.css" order="1" />
       <resx path="strings/NavyRecordReview.1033.resx" version="1.0.0" />
       -->
     </resources>

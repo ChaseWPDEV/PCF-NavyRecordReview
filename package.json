@@ -10,6 +10,8 @@
     "rebuild": "pcf-scripts rebuild",
     "start": "pcf-scripts start",
     "start:watch": "pcf-scripts start watch",
+    "watchstyles": "webpack --config webpack.config.style.js --mode=development --watch",
+    "buildstyles": "webpack --config webpack.config.style.js --mode=development",
     "refreshTypes": "pcf-scripts refreshTypes"
   },
   "dependencies": {
@@ -40,6 +42,7 @@
     "fs": "^0.0.1-security",
     "graceful-fs": "^4.2.11",
     "html-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^2.8.1",
     "path-browserify": "^1.0.1",
     "pcf-scripts": "^1",
     "pcf-start": "^1",
@@ -48,6 +51,7 @@
     "stream-browserify": "^3.0.0",
     "typescript": "^4.8.4",
     "url": "^0.11.3",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "webpack-cli": "^5.1.4"
   }
 }

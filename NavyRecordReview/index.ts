@@ -47,6 +47,15 @@ export class NavyRecordReview implements ComponentFramework.StandardControl<IInp
      
         this._context = context;
         this._container=document.createElement('div');
+        this._container.classList.add('nrr-wrapper');
+        // // add some style
+        // const style=document.createElement('link');
+        // style.rel='stylesheet';
+        // style.type='text/css';
+        // style.href='./style.min.css';
+        // this._container.appendChild(style);
+
+
         const gridElem : HTMLDivElement=document.createElement('div');
         gridElem.classList.add('grid');
         const gridD3 = d3.select(gridElem);
